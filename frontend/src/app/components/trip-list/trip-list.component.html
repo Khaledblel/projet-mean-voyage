@@ -1,0 +1,31 @@
+<div class="row mb-3">
+  <div class="col">
+    <h2>Available Trips</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4 mb-4" *ngFor="let trip of trips">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">{{ trip.title }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+          {{ $any(trip.destination)?.name }}, {{ $any(trip.destination)?.country }}
+        </h6>
+        <p class="card-text">{{ trip.description }}</p>
+        <p class="card-text">
+          <strong>Price:</strong> ${{ trip.price }} <br>
+          <strong>Duration:</strong> {{ trip.durationInDays }} days <br>
+          <strong>Start Date:</strong> {{ trip.startDate | date }}
+        </p>
+      </div>
+      <div class="card-footer bg-white text-end">
+        <button class="btn btn-sm btn-danger" (click)="deleteTrip(trip._id)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="trips.length === 0" class="alert alert-info">
+  No trips available at the moment.
+</div>
