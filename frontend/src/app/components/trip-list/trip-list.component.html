@@ -1,12 +1,61 @@
-<div class="row mb-3">
-  <div class="col">
+<div class="row mb-2">
+  <div class="col-12">
     <h2>Available Trips</h2>
   </div>
 </div>
 
+<div class="row mb-4 bg-light p-3 rounded shadow-sm">
+  
+  <div class="col-md-6 col-lg-3 mb-2 mb-lg-0">
+    <label class="form-label text-muted small">Search by Name</label>
+    <input 
+      type="text" 
+      class="form-control" 
+      placeholder="e.g. Romantic Weekend..." 
+      [(ngModel)]="searchTerm" 
+      (ngModelChange)="filterTrips()">
+  </div>
+  
+  <div class="col-md-6 col-lg-3 mb-2 mb-lg-0">
+    <label class="form-label text-muted small">Filter by Destination</label>
+    <select class="form-select" [(ngModel)]="selectedDestination" (ngModelChange)="filterTrips()">
+      <option value="">All Destinations</option>
+      <option *ngFor="let dest of destinations" [value]="dest._id">
+        {{ dest.name }}, {{ dest.country }}
+      </option>
+    </select>
+  </div>
+
+  <div class="col-md-6 col-lg-3 mb-2 mb-lg-0">
+    <label class="form-label text-muted small">Starts On or After</label>
+    <input 
+      type="date" 
+      class="form-control" 
+      [(ngModel)]="selectedDate" 
+      (ngModelChange)="filterTrips()">
+  </div>
+
+  <div class="col-md-6 col-lg-3">
+    <label class="form-label text-muted small">Sort By</label>
+    <select class="form-select" [(ngModel)]="sortBy" (ngModelChange)="filterTrips()">
+      <option value="">Default</option>
+      <option value="priceAsc">Price: Low to High</option>
+      <option value="priceDesc">Price: High to Low</option>
+      <option value="durationAsc">Duration: Short to Long</option>
+      <option value="durationDesc">Duration: Long to Short</option>
+    </select>
+  </div>
+
+</div>
+
 <div class="row">
-  <div class="col-md-4 mb-4" *ngFor="let trip of trips">
+  <div class="col-md-4 mb-4" *ngFor="let trip of paginatedTrips">
     <div class="card h-100 shadow-sm">
+     <img 
+      [src]="$any(trip.destination)?.imageUrl || 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=400&auto=format&fit=crop'" 
+      class="card-img-top" 
+      alt="Destination" 
+      style="height: 200px; object-fit: cover;">
       <div class="card-body">
         <h5 class="card-title">{{ trip.title }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">
@@ -19,13 +68,34 @@
           <strong>Start Date:</strong> {{ trip.startDate | date }}
         </p>
       </div>
-      <div class="card-footer bg-white text-end">
-        <button class="btn btn-sm btn-danger" (click)="deleteTrip(trip._id)">Delete</button>
+      <div class="card-footer bg-white d-flex justify-content-between">
+        <button class="btn btn-sm btn-info text-white" [routerLink]="['/trips', trip._id]">Details</button>
+        <div>
+          <button class="btn btn-sm btn-outline-primary me-2" [routerLink]="['/trips/edit', trip._id]">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="deleteTrip(trip._id)">Delete</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
+<div *ngIf="filteredTrips.length === 0" class="alert alert-warning text-center">
+  No trips found matching your criteria.
+</div>
 
-<div *ngIf="trips.length === 0" class="alert alert-info">
-  No trips available at the moment.
+<div class="d-flex justify-content-center mt-4" *ngIf="totalPages > 1">
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <button class="page-link" (click)="changePage(currentPage - 1)">Previous</button>
+      </li>
+      
+      <li class="page-item" *ngFor="let page of getPagesArray()" [class.active]="page === currentPage">
+        <button class="page-link" (click)="changePage(page)">{{ page }}</button>
+      </li>
+      
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <button class="page-link" (click)="changePage(currentPage + 1)">Next</button>
+      </li>
+    </ul>
+  </nav>
 </div>

@@ -1,0 +1,46 @@
+<div class="container mt-4" *ngIf="trip; else loading">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+          <h3 class="mb-0">{{ trip.title }}</h3>
+          <span class="badge bg-light text-dark fs-6">${{ trip.price }}</span>
+        </div>
+        <div class="card-body">
+          <h5 class="text-primary">
+            <i class="bi bi-geo-alt"></i> Destination: 
+            {{ $any(trip.destination)?.name }}, {{ $any(trip.destination)?.country }}
+          </h5>
+          <hr>
+          
+          <p class="fs-5">{{ trip.description || 'No description available for this trip.' }}</p>
+          
+          <div class="row mt-4 bg-light p-3 rounded">
+            <div class="col-sm-6 mb-2">
+              <strong>Duration:</strong> {{ trip.durationInDays }} Days
+            </div>
+            <div class="col-sm-6 mb-2">
+              <strong>Start Date:</strong> {{ trip.startDate | date:'longDate' }}
+            </div>
+            <div class="col-sm-12 mt-2 text-muted" *ngIf="$any(trip.destination)?.description">
+              <strong>About the destination:</strong> {{ $any(trip.destination)?.description }}
+            </div>
+          </div>
+        </div>
+        <div class="card-footer bg-white text-center">
+          <button class="btn btn-secondary me-2" routerLink="/trips">Back to List</button>
+          <button class="btn btn-primary" [routerLink]="['/trips/edit', trip._id]">Edit Trip</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="text-center mt-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2">Loading trip details...</p>
+  </div>
+</ng-template>
