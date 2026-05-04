@@ -1,98 +1,152 @@
-<div class="row mb-2">
-  <div class="col-12">
-    <h2>Available Trips</h2>
-  </div>
-</div>
-
-<div class="row mb-4 bg-light p-3 rounded shadow-sm">
-  
-  <div class="col-md-6 col-lg-3 mb-2 mb-lg-0">
-    <label class="form-label text-muted small">Search by Name</label>
-    <input 
-      type="text" 
-      class="form-control" 
-      placeholder="e.g. Romantic Weekend..." 
-      [(ngModel)]="searchTerm" 
-      (ngModelChange)="filterTrips()">
-  </div>
-  
-  <div class="col-md-6 col-lg-3 mb-2 mb-lg-0">
-    <label class="form-label text-muted small">Filter by Destination</label>
-    <select class="form-select" [(ngModel)]="selectedDestination" (ngModelChange)="filterTrips()">
-      <option value="">All Destinations</option>
-      <option *ngFor="let dest of destinations" [value]="dest._id">
-        {{ dest.name }}, {{ dest.country }}
-      </option>
-    </select>
-  </div>
-
-  <div class="col-md-6 col-lg-3 mb-2 mb-lg-0">
-    <label class="form-label text-muted small">Starts On or After</label>
-    <input 
-      type="date" 
-      class="form-control" 
-      [(ngModel)]="selectedDate" 
-      (ngModelChange)="filterTrips()">
-  </div>
-
-  <div class="col-md-6 col-lg-3">
-    <label class="form-label text-muted small">Sort By</label>
-    <select class="form-select" [(ngModel)]="sortBy" (ngModelChange)="filterTrips()">
-      <option value="">Default</option>
-      <option value="priceAsc">Price: Low to High</option>
-      <option value="priceDesc">Price: High to Low</option>
-      <option value="durationAsc">Duration: Short to Long</option>
-      <option value="durationDesc">Duration: Long to Short</option>
-    </select>
-  </div>
-
-</div>
-
-<div class="row">
-  <div class="col-md-4 mb-4" *ngFor="let trip of paginatedTrips">
-    <div class="card h-100 shadow-sm">
-     <img 
-      [src]="$any(trip.destination)?.imageUrl || 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=400&auto=format&fit=crop'" 
-      class="card-img-top" 
-      alt="Destination" 
-      style="height: 200px; object-fit: cover;">
-      <div class="card-body">
-        <h5 class="card-title">{{ trip.title }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">
-          {{ $any(trip.destination)?.name }}, {{ $any(trip.destination)?.country }}
-        </h6>
-        <p class="card-text">{{ trip.description }}</p>
-        <p class="card-text">
-          <strong>Price:</strong> ${{ trip.price }} <br>
-          <strong>Duration:</strong> {{ trip.durationInDays }} days <br>
-          <strong>Start Date:</strong> {{ trip.startDate | date }}
-        </p>
+<section class="page-hero mb-4">
+  <div class="row align-items-center gy-4">
+    <div class="col-lg-7">
+      <p class="eyebrow mb-2">Discover</p>
+      <h1 class="hero-title mb-3">Available Trips</h1>
+      <p class="hero-subtitle mb-4">
+        Plan journeys faster with clear filters, pricing, and departure dates in one view.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-brand btn-lg" routerLink="/trips/new">Plan a Trip</a>
+        <span class="hero-note">Edit or compare trips without losing context.</span>
       </div>
-      <div class="card-footer bg-white d-flex justify-content-between">
-        <button class="btn btn-sm btn-info text-white" [routerLink]="['/trips', trip._id]">Details</button>
-        <div>
-          <button class="btn btn-sm btn-outline-primary me-2" [routerLink]="['/trips/edit', trip._id]">Edit</button>
-          <button class="btn btn-sm btn-danger" (click)="deleteTrip(trip._id)">Delete</button>
+    </div>
+    <div class="col-lg-5">
+      <div class="hero-card">
+        <h6 class="hero-card-title">At a glance</h6>
+        <p class="hero-card-text">Sort by price or duration, then dive into details.</p>
+        <div class="hero-stats">
+          <div>
+            <span class="stat-label">Destinations</span>
+            <span class="stat-value">{{ destinations.length }}</span>
+          </div>
+          <div>
+            <span class="stat-label">Trips</span>
+            <span class="stat-value">{{ filteredTrips.length }}</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</section>
+
+<div class="filters-panel mb-4">
+  <div class="row g-3 align-items-end">
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="form-floating">
+        <input
+          type="text"
+          class="form-control"
+          id="tripSearch"
+          placeholder="Search by name"
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="filterTrips()">
+        <label for="tripSearch">Search by name</label>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="form-floating">
+        <select
+          class="form-select"
+          id="destinationFilter"
+          [(ngModel)]="selectedDestination"
+          (ngModelChange)="filterTrips()">
+          <option value="">All destinations</option>
+          <option *ngFor="let dest of destinations" [value]="dest._id">
+            {{ dest.name }}, {{ dest.country }}
+          </option>
+        </select>
+        <label for="destinationFilter">Destination</label>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="form-floating">
+        <input
+          type="date"
+          class="form-control"
+          id="dateFilter"
+          placeholder="Start date"
+          [(ngModel)]="selectedDate"
+          (ngModelChange)="filterTrips()">
+        <label for="dateFilter">Starts on or after</label>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="form-floating">
+        <select
+          class="form-select"
+          id="sortFilter"
+          [(ngModel)]="sortBy"
+          (ngModelChange)="filterTrips()">
+          <option value="">Default</option>
+          <option value="priceAsc">Price: Low to High</option>
+          <option value="priceDesc">Price: High to Low</option>
+          <option value="durationAsc">Duration: Short to Long</option>
+          <option value="durationDesc">Duration: Long to Short</option>
+        </select>
+        <label for="sortFilter">Sort by</label>
+      </div>
+    </div>
+  </div>
 </div>
-<div *ngIf="filteredTrips.length === 0" class="alert alert-warning text-center">
-  No trips found matching your criteria.
+
+<div class="row g-4 trip-grid">
+  <div class="col-sm-6 col-xl-4" *ngFor="let trip of paginatedTrips">
+    <div class="card trip-card h-100">
+      <div class="trip-image">
+        <img
+          [src]="$any(trip.destination)?.imageUrl || 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=700&auto=format&fit=crop'"
+          alt="Destination">
+        <span class="price-pill">${{ trip.price }}</span>
+        <span class="badge badge-soft trip-duration">{{ trip.durationInDays }} days</span>
+      </div>
+      <div class="card-body">
+        <p class="trip-location">
+          <i class="bi bi-geo-alt-fill"></i>
+          {{ $any(trip.destination)?.name }}, {{ $any(trip.destination)?.country }}
+        </p>
+        <h5 class="card-title mb-2">{{ trip.title }}</h5>
+        <p class="card-text">{{ trip.description }}</p>
+        <div class="trip-meta">
+          <div>
+            <span class="meta-label">Start</span>
+            <span class="meta-value">{{ trip.startDate | date }}</span>
+          </div>
+          <div>
+            <span class="meta-label">Destination</span>
+            <span class="meta-value">{{ $any(trip.destination)?.country }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer bg-transparent border-0 d-flex flex-wrap gap-2">
+        <button class="btn btn-ghost btn-sm flex-fill" [routerLink]="['/trips', trip._id]">Details</button>
+        <button class="btn btn-outline-sea btn-sm flex-fill" [routerLink]="['/trips/edit', trip._id]">Edit</button>
+        <button class="btn btn-danger btn-sm flex-fill" (click)="deleteTrip(trip._id)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="filteredTrips.length === 0" class="empty-state mt-4">
+  <h5 class="mb-2">No trips match these filters.</h5>
+  <p class="text-muted mb-3">Try changing the date or destination to broaden results.</p>
+  <a class="btn btn-brand btn-sm" routerLink="/trips/new">Create a Trip</a>
 </div>
 
 <div class="d-flex justify-content-center mt-4" *ngIf="totalPages > 1">
-  <nav aria-label="Page navigation">
+  <nav aria-label="Trip pages">
     <ul class="pagination">
       <li class="page-item" [class.disabled]="currentPage === 1">
         <button class="page-link" (click)="changePage(currentPage - 1)">Previous</button>
       </li>
-      
+
       <li class="page-item" *ngFor="let page of getPagesArray()" [class.active]="page === currentPage">
         <button class="page-link" (click)="changePage(page)">{{ page }}</button>
       </li>
-      
+
       <li class="page-item" [class.disabled]="currentPage === totalPages">
         <button class="page-link" (click)="changePage(currentPage + 1)">Next</button>
       </li>

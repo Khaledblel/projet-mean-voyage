@@ -1,39 +1,52 @@
-<div class="container mt-4" *ngIf="trip; else loading">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card shadow">
-        <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
-          <h3 class="mb-0">{{ trip.title }}</h3>
-          <span class="badge bg-light text-dark fs-6">${{ trip.price }}</span>
+<div class="trip-detail-page" *ngIf="trip; else loading">
+  <section class="detail-hero card border-0">
+    <div class="row g-0">
+      <div class="col-lg-5">
+        <div class="detail-image">
+          <img
+            [src]="$any(trip.destination)?.imageUrl || 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=900&auto=format&fit=crop'"
+            alt="Destination">
         </div>
-        <div class="card-body">
-          <h5 class="text-primary">
-            <i class="bi bi-geo-alt"></i> Destination: 
-            {{ $any(trip.destination)?.name }}, {{ $any(trip.destination)?.country }}
-          </h5>
-          <hr>
-          
-          <p class="fs-5">{{ trip.description || 'No description available for this trip.' }}</p>
-          
-          <div class="row mt-4 bg-light p-3 rounded">
-            <div class="col-sm-6 mb-2">
-              <strong>Duration:</strong> {{ trip.durationInDays }} Days
+      </div>
+      <div class="col-lg-7">
+        <div class="card-body detail-body">
+          <p class="eyebrow mb-2">Trip overview</p>
+          <div class="d-flex align-items-start justify-content-between flex-wrap gap-3">
+            <div>
+              <h2 class="mb-2">{{ trip.title }}</h2>
+              <p class="detail-location mb-3">
+                <i class="bi bi-geo-alt-fill"></i>
+                {{ $any(trip.destination)?.name }}, {{ $any(trip.destination)?.country }}
+              </p>
             </div>
-            <div class="col-sm-6 mb-2">
-              <strong>Start Date:</strong> {{ trip.startDate | date:'longDate' }}
+            <span class="price-pill price-pill-lg">${{ trip.price }}</span>
+          </div>
+          <p class="lead text-muted mb-4">{{ trip.description || 'No description available for this trip.' }}</p>
+          <div class="detail-stats">
+            <div>
+              <span class="meta-label">Duration: </span>
+              <span class="meta-value">{{ trip.durationInDays }} days</span>
             </div>
-            <div class="col-sm-12 mt-2 text-muted" *ngIf="$any(trip.destination)?.description">
-              <strong>About the destination:</strong> {{ $any(trip.destination)?.description }}
+            <div>
+              <span class="meta-label">Start date: </span>
+              <span class="meta-value">{{ trip.startDate | date:'longDate' }}</span>
             </div>
           </div>
-        </div>
-        <div class="card-footer bg-white text-center">
-          <button class="btn btn-secondary me-2" routerLink="/trips">Back to List</button>
-          <button class="btn btn-primary" [routerLink]="['/trips/edit', trip._id]">Edit Trip</button>
+          <div class="detail-actions">
+            <button class="btn btn-ghost" routerLink="/trips">Back to List</button>
+            <button class="btn btn-brand" [routerLink]="['/trips/edit', trip._id]">Edit Trip</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
+
+  <section class="detail-panel">
+    <h5 class="mb-2">Destination notes</h5>
+    <p class="text-muted mb-0">
+      {{ $any(trip.destination)?.description || 'No destination description provided yet.' }}
+    </p>
+  </section>
 </div>
 
 <ng-template #loading>

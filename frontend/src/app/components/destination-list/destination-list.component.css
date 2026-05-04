@@ -1,0 +1,26 @@
+.table-card {
+	border: 1px solid rgba(13, 27, 30, 0.08);
+	animation: riseIn 0.6s ease both;
+}
+
+.table-card .table th,
+.table-card .table td {
+	padding: 1rem 1.25rem;
+}
+
+.table-card .table tbody tr:hover {
+	background: rgba(11, 114, 133, 0.06);
+}
+
+.truncate {
+	max-width: 260px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.table-card {
+		animation: none;
+	}
+}

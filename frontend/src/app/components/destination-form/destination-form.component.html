@@ -1,41 +1,49 @@
-<div class="row justify-content-center mt-4">
-  <div class="col-md-6">
-    <div class="card shadow-sm">
-      <div class="card-header bg-success text-white">
-        <h4>{{ isEditMode ? 'Edit Destination' : 'Add New Destination' }}</h4>
+<div class="form-page">
+  <section class="page-hero page-hero-compact">
+    <div class="row align-items-center gy-3">
+      <div class="col-lg-8">
+        <p class="eyebrow mb-2">Destinations</p>
+        <h2 class="hero-title mb-2">{{ isEditMode ? 'Edit Destination' : 'Add a Destination' }}</h2>
+        <p class="hero-subtitle mb-0">Add city highlights and imagery for trip planning.</p>
       </div>
-      <div class="card-body">
-        <form [formGroup]="destinationForm" (ngSubmit)="onSubmit()">
-          
-          <div class="mb-3">
+      <div class="col-lg-4 text-lg-end">
+        <button class="btn btn-ghost" routerLink="/destinations">Back to destinations</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="card form-card">
+    <div class="card-body">
+      <form [formGroup]="destinationForm" (ngSubmit)="onSubmit()">
+        <div class="row g-3">
+          <div class="col-12">
             <label class="form-label">City / Name</label>
-            <input type="text" class="form-control" formControlName="name" placeholder="e.g., Tokyo">
+            <input type="text" class="form-control" formControlName="name" placeholder="Tokyo">
           </div>
 
-          <div class="mb-3">
+          <div class="col-12">
             <label class="form-label">Country</label>
-            <input type="text" class="form-control" formControlName="country" placeholder="e.g., Japan">
+            <input type="text" class="form-control" formControlName="country" placeholder="Japan">
           </div>
 
-          <div class="mb-3">
+          <div class="col-12">
             <label class="form-label">Description</label>
-            <textarea class="form-control" rows="3" formControlName="description"></textarea>
+            <textarea class="form-control" rows="4" formControlName="description" placeholder="Highlights, culture, and must-see spots."></textarea>
           </div>
 
-          <div class="mb-3">
+          <div class="col-12">
             <label class="form-label">Image URL (Optional)</label>
             <input type="text" class="form-control" formControlName="imageUrl" placeholder="https://...">
           </div>
+        </div>
 
-          <div class="d-flex justify-content-between">
-            <button type="button" class="btn btn-secondary" routerLink="/destinations">Cancel</button>
-            <button type="submit" class="btn btn-success" [disabled]="destinationForm.invalid">
-              {{ isEditMode ? 'Update' : 'Save' }} Destination
-            </button>
-          </div>
-          
-        </form>
-      </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" routerLink="/destinations">Cancel</button>
+          <button type="submit" class="btn btn-brand" [disabled]="destinationForm.invalid">
+            {{ isEditMode ? 'Update' : 'Save' }} Destination
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

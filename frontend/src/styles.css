@@ -1,2 +1,354 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css');
 @import 'bootstrap/dist/css/bootstrap.min.css';
+
+:root {
+	--ink: #102a2d;
+	--ink-strong: #0b1b1e;
+	--muted: #5a6b6f;
+	--sand: #f6e6c8;
+	--coral: #ff6b4a;
+	--sea: #0b7285;
+	--sea-dark: #075b6a;
+	--sky: #e8f4f1;
+	--card: #ffffff;
+	--shadow-soft: 0 20px 50px rgba(13, 27, 30, 0.12);
+	--shadow-strong: 0 30px 70px rgba(13, 27, 30, 0.18);
+	--radius: 22px;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Barlow', sans-serif;
+	color: var(--ink);
+	background: #f4efe7;
+	min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.display-1,
+.display-2,
+.display-3,
+.display-4,
+.display-5,
+.display-6 {
+	font-family: 'Fraunces', serif;
+	letter-spacing: -0.01em;
+	color: var(--ink-strong);
+}
+
+a {
+	color: var(--sea);
+	text-decoration: none;
+}
+
+a:hover {
+	color: var(--coral);
+}
+
+.app-shell {
+	position: relative;
+	background:
+		radial-gradient(1200px 420px at 10% -10%, rgba(255, 200, 120, 0.45), transparent 60%),
+		radial-gradient(900px 480px at 90% 10%, rgba(74, 171, 169, 0.25), transparent 60%),
+		linear-gradient(180deg, #fbf6ee 0%, #f3efe8 55%, #f7f2ea 100%);
+	min-height: calc(100vh - 72px);
+	overflow: hidden;
+}
+
+.app-shell::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-image: radial-gradient(rgba(15, 61, 58, 0.08) 1px, transparent 1px);
+	background-size: 24px 24px;
+	opacity: 0.4;
+	pointer-events: none;
+}
+
+.app-shell > .container-xxl {
+	position: relative;
+	z-index: 1;
+}
+
+.page-hero {
+	position: relative;
+	background: linear-gradient(120deg, rgba(255, 255, 255, 0.9), rgba(248, 240, 230, 0.8));
+	border: 1px solid rgba(13, 27, 30, 0.08);
+	border-radius: calc(var(--radius) + 6px);
+	padding: 2.5rem;
+	box-shadow: var(--shadow-soft);
+	overflow: hidden;
+	isolation: isolate;
+	animation: riseIn 0.6s ease both;
+}
+
+.page-hero::after {
+	content: '';
+	position: absolute;
+	right: -40px;
+	top: -60px;
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	background: radial-gradient(circle at center, rgba(255, 107, 74, 0.35), transparent 65%);
+	pointer-events: none;
+	z-index: 0;
+}
+
+.page-hero > * {
+	position: relative;
+	z-index: 1;
+}
+
+.page-hero-compact {
+	padding: 1.75rem 2rem;
+}
+
+.eyebrow {
+	text-transform: uppercase;
+	letter-spacing: 0.2em;
+	font-size: 0.7rem;
+	font-weight: 600;
+	color: var(--sea);
+}
+
+.hero-title {
+	font-size: clamp(2rem, 2.5vw, 3rem);
+}
+
+.hero-subtitle {
+	font-size: 1.05rem;
+	color: var(--muted);
+}
+
+.hero-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	align-items: center;
+}
+
+.hero-note {
+	color: var(--muted);
+	font-size: 0.95rem;
+}
+
+.hero-card {
+	background: #ffffff;
+	border-radius: var(--radius);
+	padding: 1.75rem;
+	border: 1px solid rgba(13, 27, 30, 0.08);
+	box-shadow: var(--shadow-soft);
+}
+
+.hero-card-title {
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+	font-size: 0.7rem;
+	color: var(--muted);
+	margin-bottom: 0.75rem;
+}
+
+.hero-card-text {
+	color: var(--muted);
+	margin-bottom: 1.25rem;
+}
+
+.hero-stats {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1rem;
+}
+
+.stat-label {
+	text-transform: uppercase;
+	letter-spacing: 0.18em;
+	font-size: 0.6rem;
+	color: var(--muted);
+	display: block;
+}
+
+.stat-value {
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: var(--ink-strong);
+}
+
+.card {
+	border: 0;
+	border-radius: var(--radius);
+	box-shadow: var(--shadow-soft);
+	background: var(--card);
+}
+
+.form-page {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.form-card {
+	border: 1px solid rgba(13, 27, 30, 0.08);
+	animation: riseIn 0.6s ease both;
+}
+
+.form-card .card-body {
+	padding: 2rem;
+}
+
+.form-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 1.5rem;
+}
+
+.form-control,
+.form-select {
+	border-radius: 14px;
+	border: 1px solid rgba(13, 27, 30, 0.15);
+	box-shadow: none;
+}
+
+.form-control:focus,
+.form-select:focus {
+	border-color: var(--sea);
+	box-shadow: 0 0 0 0.2rem rgba(11, 114, 133, 0.15);
+}
+
+.form-floating > label {
+	color: var(--muted);
+}
+
+.badge-soft {
+	background: rgba(11, 114, 133, 0.12);
+	color: var(--sea);
+	border: 1px solid rgba(11, 114, 133, 0.2);
+	border-radius: 999px;
+	padding: 0.35rem 0.65rem;
+	font-weight: 600;
+	font-size: 0.75rem;
+}
+
+.price-pill {
+	background: rgba(13, 27, 30, 0.85);
+	color: #ffffff;
+	border-radius: 999px;
+	padding: 0.4rem 0.8rem;
+	font-weight: 600;
+	font-size: 0.9rem;
+}
+
+.price-pill-lg {
+	font-size: 1.1rem;
+	padding: 0.5rem 1rem;
+}
+
+.btn-brand {
+	background: var(--coral);
+	border-color: var(--coral);
+	color: #ffffff;
+	box-shadow: 0 12px 22px rgba(255, 107, 74, 0.3);
+}
+
+.btn-brand:hover {
+	background: #ff7b5d;
+	border-color: #ff7b5d;
+	color: #ffffff;
+}
+
+.btn-sand {
+	background: var(--sand);
+	border-color: var(--sand);
+	color: var(--ink-strong);
+}
+
+.btn-sand:hover {
+	background: #f2dbb5;
+	border-color: #f2dbb5;
+	color: var(--ink-strong);
+}
+
+.btn-ghost {
+	background: #ffffff;
+	color: var(--sea);
+	border: 1px solid rgba(11, 114, 133, 0.2);
+}
+
+.btn-ghost:hover {
+	background: rgba(11, 114, 133, 0.08);
+	color: var(--sea-dark);
+}
+
+.btn-outline-sea {
+	color: var(--sea);
+	border-color: rgba(11, 114, 133, 0.5);
+}
+
+.btn-outline-sea:hover {
+	background: rgba(11, 114, 133, 0.1);
+	color: var(--sea-dark);
+}
+
+.table thead th {
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	font-size: 0.7rem;
+	color: var(--muted);
+	border-bottom: 0;
+}
+
+.empty-state {
+	padding: 2.5rem;
+	text-align: center;
+	background: rgba(255, 255, 255, 0.8);
+	border-radius: var(--radius);
+	border: 1px dashed rgba(13, 27, 30, 0.2);
+	animation: riseIn 0.6s ease both;
+}
+
+.pagination .page-link {
+	border: 0;
+	border-radius: 999px;
+	margin: 0 0.2rem;
+	color: var(--sea);
+	background: #ffffff;
+	box-shadow: 0 10px 18px rgba(13, 27, 30, 0.08);
+}
+
+.page-item.active .page-link {
+	background: var(--sea);
+	color: #ffffff;
+}
+
+@keyframes riseIn {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.page-hero,
+	.form-card,
+	.empty-state {
+		animation: none;
+	}
+}

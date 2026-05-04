@@ -1,0 +1,138 @@
+.filters-panel {
+	background: rgba(255, 255, 255, 0.9);
+	border-radius: var(--radius);
+	padding: 1.5rem;
+	border: 1px solid rgba(13, 27, 30, 0.08);
+	box-shadow: var(--shadow-soft);
+	backdrop-filter: blur(8px);
+	animation: riseIn 0.6s ease both;
+}
+
+.trip-grid > div {
+	animation: riseIn 0.5s ease both;
+}
+
+.trip-grid > div:nth-child(2) {
+	animation-delay: 0.05s;
+}
+
+.trip-grid > div:nth-child(3) {
+	animation-delay: 0.1s;
+}
+
+.trip-grid > div:nth-child(4) {
+	animation-delay: 0.15s;
+}
+
+.trip-card {
+	overflow: hidden;
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.trip-card:hover {
+	transform: translateY(-6px);
+	box-shadow: var(--shadow-strong);
+}
+
+.trip-image {
+	position: relative;
+	overflow: hidden;
+	background: #ece4d8;
+}
+
+.trip-image img {
+	display: block;
+	width: 100%;
+	height: 220px;
+	object-fit: cover;
+	object-position: center;
+	transition: transform 0.4s ease;
+}
+
+.trip-card:hover .trip-image img {
+	transform: scale(1.04);
+}
+
+.trip-duration {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	background: rgba(255, 255, 255, 0.85);
+	color: var(--ink);
+	z-index: 2;
+	backdrop-filter: blur(6px);
+}
+
+.trip-image .price-pill {
+	position: absolute;
+	left: 14px;
+	bottom: 14px;
+	z-index: 2;
+	display: inline-flex;
+	align-items: center;
+	box-shadow: 0 12px 24px rgba(13, 27, 30, 0.25);
+}
+
+.trip-location {
+	display: flex;
+	align-items: center;
+	gap: 0.35rem;
+	color: var(--sea);
+	font-weight: 600;
+	margin-bottom: 0.5rem;
+}
+
+.trip-meta {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 0.75rem;
+	padding-top: 0.75rem;
+	border-top: 1px solid rgba(13, 27, 30, 0.08);
+	font-size: 0.85rem;
+}
+
+.meta-label {
+	display: block;
+	color: var(--muted);
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	font-size: 0.7rem;
+}
+
+.meta-value {
+	font-weight: 600;
+	color: var(--ink);
+}
+
+.trip-card .card-text {
+	color: var(--muted);
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.trip-card .card-footer {
+	padding: 1rem 1.25rem 1.25rem;
+}
+
+.trip-card .btn {
+	white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+	.trip-grid > div {
+		animation-delay: 0s;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.filters-panel,
+	.trip-grid > div {
+		animation: none;
+	}
+
+	.trip-card {
+		transition: none;
+	}
+}

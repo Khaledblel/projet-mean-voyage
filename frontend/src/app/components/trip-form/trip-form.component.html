@@ -1,18 +1,29 @@
-<div class="row justify-content-center">
-  <div class="col-md-8">
-    <div class="card shadow-sm mt-3">
-      <div class="card-header bg-primary text-white">
-        <h4>{{ isEditMode ? 'Edit Trip' : 'Add New Trip' }}</h4>
+<div class="form-page">
+  <section class="page-hero page-hero-compact">
+    <div class="row align-items-center gy-3">
+      <div class="col-lg-8">
+        <p class="eyebrow mb-2">Trips</p>
+        <h2 class="hero-title mb-2">{{ isEditMode ? 'Edit Trip' : 'Create a New Trip' }}</h2>
+        <p class="hero-subtitle mb-0">
+          Capture the essentials: destination, price, duration, and start date.
+        </p>
       </div>
-      <div class="card-body">
-        <form [formGroup]="tripForm" (ngSubmit)="onSubmit()">
-          
-          <div class="mb-3">
-            <label class="form-label">Trip Title</label>
-            <input type="text" class="form-control" formControlName="title">
+      <div class="col-lg-4 text-lg-end">
+        <button class="btn btn-ghost" routerLink="/trips">Back to trips</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="card form-card">
+    <div class="card-body">
+      <form [formGroup]="tripForm" (ngSubmit)="onSubmit()">
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label">Trip title</label>
+            <input type="text" class="form-control" formControlName="title" placeholder="Coastal escape">
           </div>
 
-          <div class="mb-3">
+          <div class="col-12">
             <label class="form-label">Destination</label>
             <select class="form-select" formControlName="destination">
               <option value="" disabled>Select a destination</option>
@@ -22,35 +33,36 @@
             </select>
           </div>
 
-          <div class="row">
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Price ($)</label>
-              <input type="number" class="form-control" formControlName="price">
-            </div>
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Duration (Days)</label>
-              <input type="number" class="form-control" formControlName="durationInDays">
-            </div>
-            <div class="col-md-4 mb-3">
-              <label class="form-label">Start Date</label>
-              <input type="date" class="form-control" formControlName="startDate">
-            </div>
+          <div class="col-md-4">
+            <label class="form-label">Price (USD)</label>
+            <input type="number" class="form-control" formControlName="price" placeholder="1200">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Duration (Days)</label>
+            <input type="number" class="form-control" formControlName="durationInDays" placeholder="5">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Start Date</label>
+            <input type="date" class="form-control" formControlName="startDate">
           </div>
 
-          <div class="mb-3">
+          <div class="col-12">
             <label class="form-label">Description</label>
-            <textarea class="form-control" rows="3" formControlName="description"></textarea>
+            <textarea
+              class="form-control"
+              rows="4"
+              formControlName="description"
+              placeholder="Describe the trip vibe and highlights."></textarea>
           </div>
+        </div>
 
-          <div class="d-flex justify-content-between">
-            <button type="button" class="btn btn-secondary" routerLink="/trips">Cancel</button>
-            <button type="submit" class="btn btn-success" [disabled]="tripForm.invalid">
-              {{ isEditMode ? 'Update' : 'Save' }} Trip
-            </button>
-          </div>
-          
-        </form>
-      </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" routerLink="/trips">Cancel</button>
+          <button type="submit" class="btn btn-brand" [disabled]="tripForm.invalid">
+            {{ isEditMode ? 'Update' : 'Save' }} Trip
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

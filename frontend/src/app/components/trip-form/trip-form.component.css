@@ -1,0 +1,8 @@
+.form-card .form-label {
+	font-weight: 600;
+	color: var(--ink-strong);
+}
+
+.form-card textarea {
+	min-height: 140px;
+}

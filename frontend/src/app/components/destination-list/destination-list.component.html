@@ -1,37 +1,43 @@
-<div class="row mb-3 align-items-center">
-  <div class="col">
-    <h2>Manage Destinations</h2>
+<section class="page-hero page-hero-compact mb-4">
+  <div class="row align-items-center gy-3">
+    <div class="col-lg-8">
+      <p class="eyebrow mb-2">Directory</p>
+      <h2 class="hero-title mb-2">Manage Destinations</h2>
+      <p class="hero-subtitle mb-0">Keep destination details fresh for every trip.</p>
+    </div>
+    <div class="col-lg-4 text-lg-end">
+      <button class="btn btn-brand" routerLink="/destinations/new">Add Destination</button>
+    </div>
   </div>
-  <div class="col text-end">
-    <button class="btn btn-success" routerLink="/destinations/new">+ Add Destination</button>
-  </div>
-</div>
+</section>
 
-<div class="card shadow-sm">
+<div class="card table-card">
   <div class="card-body p-0">
-    <table class="table table-hover mb-0">
-      <thead class="table-light">
-        <tr>
-          <th>Name</th>
-          <th>Country</th>
-          <th>Description</th>
-          <th class="text-end">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let dest of destinations">
-          <td class="align-middle fw-bold">{{ dest.name }}</td>
-          <td class="align-middle">{{ dest.country }}</td>
-          <td class="align-middle text-truncate" style="max-width: 250px;">{{ dest.description }}</td>
-          <td class="align-middle text-end">
-            <button class="btn btn-sm btn-outline-primary me-2" [routerLink]="['/destinations/edit', dest._id]">Edit</button>
-            <button class="btn btn-sm btn-danger" (click)="deleteDestination(dest._id)">Delete</button>
-          </td>
-        </tr>
-        <tr *ngIf="destinations.length === 0">
-          <td colspan="4" class="text-center py-4">No destinations found.</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Country</th>
+            <th>Description</th>
+            <th class="text-end">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let dest of destinations">
+            <td class="align-middle fw-semibold">{{ dest.name }}</td>
+            <td class="align-middle">{{ dest.country }}</td>
+            <td class="align-middle text-muted truncate">{{ dest.description }}</td>
+            <td class="align-middle text-end">
+              <button class="btn btn-sm btn-outline-sea me-2" [routerLink]="['/destinations/edit', dest._id]">Edit</button>
+              <button class="btn btn-sm btn-danger" (click)="deleteDestination(dest._id)">Delete</button>
+            </td>
+          </tr>
+          <tr *ngIf="destinations.length === 0">
+            <td colspan="4" class="text-center py-4 text-muted">No destinations found.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
