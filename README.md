@@ -154,8 +154,8 @@ Open the app at `http://localhost:4200`.
 		</td>
 		<td align="center" width="50%">
 			<img src="images/2.png" alt="Trip form" width="420"><br>
-			<strong>Trip Form</strong><br>
-			<sub>Create or update trip information</sub>
+			<strong>Trip Details</strong><br>
+			<sub>View trip information and itinerary details</sub>
 		</td>
 	</tr>
 </table>
