@@ -59,10 +59,10 @@ export class TripListComponent implements OnInit {
     });
   }
 
-  filterTrips(): void {
+filterTrips(): void {
     let tempTrips = this.trips.filter(trip => {
       const matchesSearch = trip.title.toLowerCase().includes(this.searchTerm.toLowerCase());
-      const tripDestId = (trip.destination as any)._id;
+      const tripDestId = trip.destination ? (trip.destination as any)._id : null;
       const matchesDest = this.selectedDestination ? tripDestId === this.selectedDestination : true;
       let matchesDate = true;
       if (this.selectedDate) {
